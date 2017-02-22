@@ -1,7 +1,7 @@
 ## Vue Snake
 HTML and JS built snake like game
 
-Very basic conceptused as example of Vue update and rendering capabilities.
+Very basic concept, used as example of Vue update and rendering capabilities.
 
 ### Install
 
