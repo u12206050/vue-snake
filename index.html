@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Vue Snake</title>
+  	<meta name="author" content="Gerard Lamusse">
+  	<meta name="description" content="HTML snake game">
+  	<meta name="keywords" content="snake,game,html,vuejs">
+	<link href="https://fonts.googleapis.com/css?family=Pangolin" rel="stylesheet">
+</head>
+<body>
+	<h1>Enjoy <span>Vue Snake</span></h1>
+	<div id="app" @keyup.left="move(-10,0)" @keyup.up="move(0,-10)" @keyup.right="move(10,0)" @keyup.down="move(0,10)">
+		<button @click="start">{{started}}</button>
+		<button @click="togglePause">{{paused}}</button>
+		<div class="info">Score: {{score}}</div>
+		<div class="board" v-bind:style="{width: width+'px', height: height+'px'}">
+			<div class="score">{{display}}</div>
+			<div class="food" v-bind:style="{top: food.y+'px', left: food.x+'px'}"></div>
+			<div class="snake" v-for="part of snake.parts" v-bind:style="{top: part.y+'px', left: part.x+'px'}">
+			</div>
+		</div>
+	</div>
+	<div class="info">This game is written in pure html and javascript with the help of <a href="https://vuejs.org" target="_blank">Vue JS</a>.<br/>Play around with the properties in console by accessing <code>vue_snake</code><br/><br/>Author: Gerard Lamusse 2017</div>
+
+	<style>
+		#app,.board{position:relative}*{box-sizing:border-box;font-family:Pangolin,cursive}body,html{margin:0;padding:10px;background:#000}h1{margin: 5px; color:#fff}h1 span{color:#0f0}button{-webkit-appearance:none;background:#000;color:red;border:1px solid red;padding:5px 10px;margin:5px;cursor:pointer}button:hover{color:#0f0;border:1px solid #0f0}.board{border:1px solid #00b}.score{font-size:100px;position:absolute;width:100%;text-align:center;top:50%;margin-top:-50px;color:#666}.food,.snake{width:10px;height:10px;display:block;position:absolute}.food{border:1px solid red;z-index:1;transition:all .4s ease}.snake{border:1px solid #0f0;z-index:2;transition:all .1s linear}.info{display:inline-block;color:silver;margin:5px}
+	</style>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="script.js"></script>
+</body>
+</html>
