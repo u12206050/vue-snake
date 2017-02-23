@@ -50,36 +50,42 @@ var vue_snake = new Vue({
 			this.placeFood();
 			var ref = this;
 			this.loop = setInterval(function() {
-				if (ref.pause) return;
-				var head = prev = {
-					x: ref.head.x + ref.snake.direction.x,
-					y: ref.head.y + ref.snake.direction.y
-				};
-				if (prev.x < 0 ||
-					prev.x >= ref.width ||
-					prev.y < 0 ||
-					prev.y >= ref.height) {
-					clearInterval(ref.loop);
-					ref.crashed = true;
-					return;
-				}
-				if (prev.x == ref.food.x && prev.y == ref.food.y) {
-					ref.addPart();
-				}
-				ref.snake.parts.forEach(function(p) {
-					if (head.x == p.x && head.y == p.y) {
-						clearInterval(ref.loop);
-						ref.crashed = true;
-					}
-					var tmp = {
-						x: p.x,
-						y: p.y
-					}
-					p.x = prev.x;
-					p.y = prev.y;
-					prev = tmp;
-				});
+				if (!ref.moved)
+					ref.move();
+				this.moved = false;
 			}, 100);
+		},
+		move: function() {
+			if (this.pause) return;
+			var head = prev = {
+				x: this.head.x + this.snake.direction.x,
+				y: this.head.y + this.snake.direction.y
+			};
+			if (prev.x < 0 ||
+				prev.x >= this.width ||
+				prev.y < 0 ||
+				prev.y >= this.height) {
+				clearInterval(this.loop);
+				this.crashed = true;
+				return;
+			}
+			if (prev.x == this.food.x && prev.y == this.food.y) {
+				this.addPart();
+			}
+			this.snake.parts.forEach(function(p) {
+				if (head.x == p.x && head.y == p.y) {
+					clearInterval(this.loop);
+					this.crashed = true;
+				}
+				var tmp = {
+					x: p.x,
+					y: p.y
+				}
+				p.x = prev.x;
+				p.y = prev.y;
+				prev = tmp;
+			});
+			this.moved = true;
 		},
 		togglePause: function() {
 			this.pause = !this.pause;
@@ -103,10 +109,12 @@ var vue_snake = new Vue({
 			if (_x && !this.snake.direction.x) {
 				this.snake.direction.x = _x;
 				this.snake.direction.y = 0;
+				this.move();
 			}
 			if (_y && !this.snake.direction.y) {
 				this.snake.direction.x = 0;
 				this.snake.direction.y = _y;
+				this.move();
 			}
 		}
 	}
