@@ -10,7 +10,8 @@ var vue_snake = new Vue({
 		food: {x: 0,y: 0},
 		width: 800,
 		height: 400,
-		pause: false
+		pause: false,
+		moved: false
 	},
 	mounted: function() {
 	},
