@@ -34,14 +34,11 @@
 		<label>Width: <input type="number" v-model="width" /></label>
 		<label>Height: <input type="number" v-model="height" /></label>
 		<label>Size: <input type="number" v-model="size" /></label>
+		<a href="https://github.com/u12206050/vue-snake">View on Github</a>
 	</div>
-	<div class="info">Supports keyboard (left, up, right and down) arrow keys.<br>Supports touch/swipe with the help of HammerJS</div>
-	<div class="info">This game is written in pure html and javascript with the help of <a href="https://vuejs.org" target="_blank">Vue JS</a>.<br/>Play around with the reactive properties via the console by accessing <code>vue_snake</code><br/><br/>Author: Gerard Lamusse 2017</div>
-	<code><a href="https://github.com/u12206050/vue-snake">code</a></code>
 	<style>
 		#app,.board{position:relative}*{box-sizing:border-box;font-family:Pangolin,cursive}body,html{margin:0;padding:10px;background:#3F51B5}h1{margin: 5px; color:#fff}h1 span{color:#0f0}button{-webkit-appearance:none;background:#000;color:red;border:1px solid red;padding:5px 10px;margin:5px;cursor:pointer}button:hover{color:#0f0;border:1px solid #0f0}.board{background: #212121;border:1px solid #00b}.score{font-size:100px;position:absolute;width:100%;text-align:center;top:50%;margin-top:-50px;color:#666}.food,.snake{width:10px;height:10px;display:block;position:absolute}.food{border:1px solid red;z-index:1;transition:all .4s ease}
 		.snake{border:1px solid #0f0;border-radius:100%;z-index:2;transition:all .1s linear}.snake.head{border-radius:100% 0 0 0}.snake:last-child{border-radius:0}
-		.info{display:inline-block;color:silver;margin:5px}
 		label{color: #eee;}
 		input[type="number"] {-webkit-appearance: none;border: 1px solid #2196F3;background: #212121;color: #2196F3;padding: 5px;font-size: 14px;width: 100px;}
 		.controls{max-width: 190px;text-align:center;}.controls button { width: 50px; height: 36px }
