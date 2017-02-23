@@ -2,7 +2,7 @@ var vue_snake = new Vue({
 	el: "#app",
 	data: {
 		snake: {
-			direction: {x: +10,y: 0},
+			direction: {x: 0,y: 0},
 			parts: [{x:0,y:0}]
 		},
 		crashed: false,
@@ -11,7 +11,8 @@ var vue_snake = new Vue({
 		width: 800,
 		height: 400,
 		pause: false,
-		moved: false
+		moved: false,
+		size: 20
 	},
 	mounted: function() {
 	},
@@ -34,11 +35,6 @@ var vue_snake = new Vue({
 		}
 	},
 	methods: {
-		add: function() {
-			for (var i = 20; i >= 0; i--) {
-				this.addPart();
-			}
-		},
 		start: function() {
 			if (this.loop)
 				clearInterval(this.loop);
@@ -48,13 +44,25 @@ var vue_snake = new Vue({
 			}];
 			this.crashed = this.pause = this.moved = false;
 			this.placeFood();
+			this.snake.direction.x = this.size;
+			this.snake.direction.y = 0;
 			var ref = this;
 			this.loop = setInterval(function() {
-				console.log(ref.moved);
 				if (!ref.moved)
 					ref.forward();
 				ref.moved = false;
 			}, 100);
+		},
+		direction: function(i) {
+			if (i) return 0;
+			if (this.snake.direction.x > 0)
+				return -45;
+			if (this.snake.direction.x < 0)
+				return 135;
+			if (this.snake.direction.y > 0)
+				return 45;
+			if (this.snake.direction.y < 0)
+				return -135;
 		},
 		forward: function() {
 			if (this.pause) return;
@@ -62,21 +70,14 @@ var vue_snake = new Vue({
 				x: this.head.x + this.snake.direction.x,
 				y: this.head.y + this.snake.direction.y
 			};
-			if (head.x < -5 ||
-				head.x >= this.width+5 ||
-				head.y < -5 ||
-				head.y >= this.height+5) {
-				clearInterval(this.loop);
-				this.crashed = true;
-				return;
-			}
 			if (prev.x == this.food.x && prev.y == this.food.y) {
 				this.addPart();
 			}
-			this.snake.parts.forEach(function(p) {
-				if (head.x == p.x && head.y == p.y) {
-					clearInterval(this.loop);
-					this.crashed = true;
+			var ref = this;
+			this.snake.parts.forEach(function(p, i) {
+				if (head.x == p.x && head.y == p.y && i > 0) {
+					clearInterval(ref.loop);
+					ref.crashed = true;
 				}
 				var tmp = {
 					x: p.x,
@@ -86,6 +87,13 @@ var vue_snake = new Vue({
 				p.y = prev.y;
 				prev = tmp;
 			});
+			if (head.x < 0 ||
+				head.x >= this.width ||
+				head.y < 0 ||
+				head.y >= this.height) {
+				clearInterval(this.loop);
+				this.crashed = true;
+			}
 			this.moved = true;
 		},
 		togglePause: function() {
@@ -104,7 +112,7 @@ var vue_snake = new Vue({
 			this.food.y = this.random(this.height);
 		},
 		random: function(max) {
-			return Math.round(Math.random() * (max-10)/10) * 10;
+			return Math.round(Math.random() * (max-this.size)/this.size) * this.size;
 		},
 		move: function(_x, _y) {
 			console.log('Move');
