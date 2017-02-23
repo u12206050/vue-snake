@@ -8,6 +8,8 @@
   	<meta name="description" content="HTML snake game">
   	<meta name="keywords" content="snake,game,html,vuejs">
 	<link href="https://fonts.googleapis.com/css?family=Pangolin" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </head>
 <body>
 	<h1>Enjoy <span>Vue Snake</span></h1>
@@ -15,27 +17,34 @@
 		<button @click="start">{{started}}</button>
 		<button @click="togglePause">{{paused}}</button>
 		<div class="info">Score: {{score}}</div>
-		<div class="board" v-touch:swipeleft="move(-10,0)" v-touch:swipeup="move(0,-10)" v-touch:swiperight="move(10,0)" v-touch:swipedown="move(0,10)" v-bind:style="{width: width+'px', height: height+'px'}">
+		<v-touch ref="div" class="board" v-on:swipeleft="move(-10,0)" v-on:swipeup="move(0,-10)" v-on:swiperight="move(10,0)" v-on:swipedown="move(0,10)" v-bind:style="{width: width+'px', height: height+'px'}">
 			<div class="score">{{display}}</div>
 			<div class="food" v-bind:style="{top: food.y+'px', left: food.x+'px'}"></div>
 			<div class="snake" v-for="part of snake.parts" v-bind:style="{top: part.y+'px', left: part.x+'px'}">
 			</div>
+		</v-touch>
+		<div class="controls">
+			<button @click="move(0,-10)"><i class="material-icons">keyboard_arrow_up</i></button><br>
+			<button @click="move(-10,0)"><i class="material-icons">keyboard_arrow_left</i></button>
+			<button @click="move(0,10)"><i class="material-icons">keyboard_arrow_down</i></button>
+			<button @click="move(10,0)"><i class="material-icons">keyboard_arrow_right</i></button>
 		</div>
 		<br>
+		<hr/>
 		<label>Width: <input type="number" v-model="width" /></label>
 		<label>Height: <input type="number" v-model="height" /></label>
-		<hr/>
-		<div class="controls">
-			<button @click="move(-10,0)">left</button><button @click="move(0,-10)">up</button><button @click="move(10,0)">right</button><button @click="move(0,10)">down</button>
-		</div>
 	</div>
-	<div class="info">This game is written in pure html and javascript with the help of <a href="https://vuejs.org" target="_blank">Vue JS</a>.<br/>Play around with the properties in console by accessing <code>vue_snake</code><br/><br/>Author: Gerard Lamusse 2017</div>
+	<div class="info">Supports keyboard (left, up, right and down) arrow keys.<br>Supports touch/swipe with the help of HammerJS</div>
+	<div class="info">This game is written in pure html and javascript with the help of <a href="https://vuejs.org" target="_blank">Vue JS</a>.<br/>Play around with the reactive properties via the console by accessing <code>vue_snake</code><br/><br/>Author: Gerard Lamusse 2017</div>
 	<code><a href="https://github.com/u12206050/vue-snake">code</a></code>
 	<style>
 		#app,.board{position:relative}*{box-sizing:border-box;font-family:Pangolin,cursive}body,html{margin:0;padding:10px;background:#3F51B5}h1{margin: 5px; color:#fff}h1 span{color:#0f0}button{-webkit-appearance:none;background:#000;color:red;border:1px solid red;padding:5px 10px;margin:5px;cursor:pointer}button:hover{color:#0f0;border:1px solid #0f0}.board{background: #212121;border:1px solid #00b}.score{font-size:100px;position:absolute;width:100%;text-align:center;top:50%;margin-top:-50px;color:#666}.food,.snake{width:10px;height:10px;display:block;position:absolute}.food{border:1px solid red;z-index:1;transition:all .4s ease}.snake{border:1px solid #0f0;z-index:2;transition:all .1s linear}.info{display:inline-block;color:silver;margin:5px}
-		.controls button { width: 50px; height: 25px }
+		label{color: #eee;}
+		input[type="number"] {-webkit-appearance: none;border: 1px solid #2196F3;background: #212121;color: #2196F3;padding: 5px;font-size: 14px;width: 100px;}
+		.controls{max-width: 190px;text-align:center;}.controls button { width: 50px; height: 36px }
 	</style>
 	<script src="//unpkg.com/vue/dist/vue.js"></script>
+	<script src="//hammerjs.github.io/dist/hammer.min.js"></script>
 	<script src="//hammerjs.github.io/dist/hammer-time.min.js"></script>
 	<script src="//unpkg.com/vue-touch@2.0.0-beta.4"></script>
 
