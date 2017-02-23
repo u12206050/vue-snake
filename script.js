@@ -115,17 +115,15 @@ var vue_snake = new Vue({
 			return Math.round(Math.random() * (max-this.size)/this.size) * this.size;
 		},
 		move: function(_x, _y) {
-			console.log('Move');
 			if (_x && !this.snake.direction.x) {
 				this.snake.direction.x = _x;
 				this.snake.direction.y = 0;
-				this.forward();
 			}
 			if (_y && !this.snake.direction.y) {
 				this.snake.direction.x = 0;
 				this.snake.direction.y = _y;
-				this.forward();
 			}
+			this.forward();
 		}
 	}
 });
