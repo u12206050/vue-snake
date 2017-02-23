@@ -46,8 +46,7 @@ var vue_snake = new Vue({
 				x: this.random(this.width),
 				y: this.random(this.height)
 			}];
-			this.crashed = false;
-			this.pause = false;
+			this.crashed = this.pause = this.moved = false;
 			this.placeFood();
 			var ref = this;
 			this.loop = setInterval(function() {
