@@ -52,7 +52,7 @@ var vue_snake = new Vue({
 			this.loop = setInterval(function() {
 				if (!ref.moved)
 					ref.move();
-				this.moved = false;
+				ref.moved = false;
 			}, 100);
 		},
 		move: function() {
