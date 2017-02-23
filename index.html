@@ -20,7 +20,7 @@
 		<v-touch ref="div" class="board" v-on:swipeleft="move(-size,0)" v-on:swipeup="move(0,-size)" v-on:swiperight="move(size,0)" v-on:swipedown="move(0,size)" v-bind:style="{width: width+'px', height: height+'px'}">
 			<div class="score">{{display}}</div>
 			<div class="food" v-bind:style="{width: size+'px', height: size+'px', top: food.y+'px', left: food.x+'px'}"></div>
-			<div class="snake" v-for="(part, i) of snake.parts" v-bind:class="{smooth: animate, head: !i}" v-bind:style="{width: size+'px', height: size+'px', top: part.y+'px', left: part.x+'px', transform: 'rotate('+direction(i)+'deg)'}">
+			<div class="snake" v-for="(part, i) of snake.parts" v-bind:class="{fancy: animate, head: !i}" v-bind:style="{width: size+'px', height: size+'px', top: part.y+'px', left: part.x+'px', transform: 'rotate('+direction(i)+'deg)'}">
 			</div>
 		</v-touch>
 		<div class="controls">
@@ -31,7 +31,7 @@
 		</div>
 		<br>
 		<hr/>
-		<label>Smooth animation: <input type="checkbox" id="checkbox" v-model="animate" /></label>
+		<label>Fancy: <input type="checkbox" id="checkbox" v-model="animate" /></label>
 		<label>Width: <input type="number" v-model="width" /></label>
 		<label>Height: <input type="number" v-model="height" /></label>
 		<label>Size: <input type="number" v-model="size" /></label>
@@ -39,8 +39,10 @@
 	</div>
 	<style>
 		#app,.board{position:relative}*{box-sizing:border-box;font-family:Pangolin,cursive}body,html{margin:0;padding:10px;background:#3F51B5}h1{margin: 5px; color:#fff}h1 span{color:#0f0}button{-webkit-appearance:none;background:#000;color:red;border:1px solid red;padding:5px 10px;margin:5px;cursor:pointer}button:hover{color:#0f0;border:1px solid #0f0}.board{background: #212121;border:1px solid #00b}.score{font-size:100px;position:absolute;width:100%;text-align:center;top:50%;margin-top:-50px;color:#666}.food,.snake{width:10px;height:10px;display:block;position:absolute}.food{border:1px solid red;z-index:1;transition:all .4s ease}
-		.snake{border:1px solid #0f0;border-radius:100%;z-index:2;}.snake.head{border-radius:100% 0 0 0}.snake:last-child{border-radius:0}
-		.snake.smooth{transition:all .1s linear}
+		.snake{border:1px solid #0f0;z-index:2;}
+		.snake.fancy{border-radius:100%;transition:all .1s linear}
+		.snake.fancy:last-child{border-radius:0}
+		.snake.fancy.head{border-radius:100% 0 0 0}
 		label{color: #eee;}
 		input[type="number"] {-webkit-appearance: none;border: 1px solid #2196F3;background: #212121;color: #2196F3;padding: 5px;font-size: 14px;width: 100px;}
 		.controls{max-width: 190px;text-align:center;}.controls button { width: 50px; height: 36px }
