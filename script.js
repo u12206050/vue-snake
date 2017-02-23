@@ -12,7 +12,8 @@ var vue_snake = new Vue({
 		height: 400,
 		pause: false,
 		moved: false,
-		size: 20
+		size: 20,
+		animate: false
 	},
 	mounted: function() {
 	},
