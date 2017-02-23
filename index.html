@@ -21,6 +21,9 @@
 			<div class="snake" v-for="part of snake.parts" v-bind:style="{top: part.y+'px', left: part.x+'px'}">
 			</div>
 		</div>
+		<br>
+		<label>Width: <input type="number" v-model="width" /></label>
+		<label>Height: <input type="number" v-model="height" /></label>
 	</div>
 	<div class="info">This game is written in pure html and javascript with the help of <a href="https://vuejs.org" target="_blank">Vue JS</a>.<br/>Play around with the properties in console by accessing <code>vue_snake</code><br/><br/>Author: Gerard Lamusse 2017</div>
 
