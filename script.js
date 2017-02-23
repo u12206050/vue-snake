@@ -3,7 +3,7 @@ var vue_snake = new Vue({
 	data: {
 		snake: {
 			direction: {x: +10,y: 0},
-			parts: [{x:0,y:0}]	
+			parts: [{x:0,y:0}]
 		},
 		crashed: false,
 		loop: null,
@@ -50,21 +50,22 @@ var vue_snake = new Vue({
 			this.placeFood();
 			var ref = this;
 			this.loop = setInterval(function() {
+				console.log(ref.moved);
 				if (!ref.moved)
-					ref.move();
+					ref.forward();
 				ref.moved = false;
 			}, 100);
 		},
-		move: function() {
+		forward: function() {
 			if (this.pause) return;
 			var head = prev = {
 				x: this.head.x + this.snake.direction.x,
 				y: this.head.y + this.snake.direction.y
 			};
-			if (prev.x < 0 ||
-				prev.x >= this.width ||
-				prev.y < 0 ||
-				prev.y >= this.height) {
+			if (head.x < -5 ||
+				head.x >= this.width+5 ||
+				head.y < -5 ||
+				head.y >= this.height+5) {
 				clearInterval(this.loop);
 				this.crashed = true;
 				return;
@@ -106,15 +107,16 @@ var vue_snake = new Vue({
 			return Math.round(Math.random() * (max-10)/10) * 10;
 		},
 		move: function(_x, _y) {
+			console.log('Move');
 			if (_x && !this.snake.direction.x) {
 				this.snake.direction.x = _x;
 				this.snake.direction.y = 0;
-				this.move();
+				this.forward();
 			}
 			if (_y && !this.snake.direction.y) {
 				this.snake.direction.x = 0;
 				this.snake.direction.y = _y;
-				this.move();
+				this.forward();
 			}
 		}
 	}
