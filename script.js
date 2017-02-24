@@ -13,9 +13,7 @@ var vue_snake = new Vue({
 		pause: false,
 		moved: false,
 		size: 20,
-		animate: false
-	},
-	mounted: function() {
+		fancy: true
 	},
 	computed: {
 		display: function() {
@@ -116,6 +114,7 @@ var vue_snake = new Vue({
 			return Math.round(Math.random() * (max-this.size)/this.size) * this.size;
 		},
 		move: function(_x, _y) {
+			console.log(_x, _y);
 			if (_x && !this.snake.direction.x) {
 				this.snake.direction.x = _x;
 				this.snake.direction.y = 0;
